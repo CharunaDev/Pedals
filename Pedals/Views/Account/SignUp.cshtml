@@ -8,7 +8,12 @@
     ViewBag.Title = "SignUp";
     Layout = "~/Views/_LogLayoutPage.cshtml";
 }
-<div class="signinform">
+@{
+    ViewBag.Title = "SignUp";
+    Layout = "~/Views/_LogLayoutPage.cshtml";
+}
+
+<div class="signupform" ng-app="myApp" ng-controller="AccountControlleree">
     <h1>Sign Up Form</h1>
     <!-- container -->
     <div class="container">
@@ -16,40 +21,46 @@
         <div class="w3l-form-info">
             <div class="w3_info">
                 <h2>Sign Up</h2>
-                <form id="signUpForm" action="@Url.Action("SignUp", "Account")" method="post">
+                <form id="signUpForm">
+                    <div class="input-group">
+                        <span><i class="fas fa-id-card" aria-hidden="true"></i></span>
+                        <input type="text" name="staff_id" ng-model="staff_id" placeholder="Statt ID" required="">
+                        <button type="button" id="processBtn" class="btn btn-group-xs" ng-click="processBtnssClicked()" ng-disabled="!staff_id" ng-class="{ 'no-hover': !staff_id }">Process</button>
+                    </div>
+                    @*<div ng-repeat="staffDetail in staffDetails">*@
                     <div class="input-group">
                         <span><i class="fas fa-user" aria-hidden="true"></i></span>
-                        <input type="text" name="first_name" placeholder="First Name" required="">
+                        <input type="text" name="first_name" placeholder="{{ staffDetails && staffDetails.length ? ''+ staffDetails[0].first_name : 'First Name' }}" required="">
                     </div>
                     <div class="input-group">
                         <span><i class="fas fa-user" aria-hidden="true"></i></span>
-                        <input type="text" name="last_name" placeholder="Last Name" required="">
+                        <input type="text" name="last_name" placeholder="{{ staffDetails && staffDetails.length ? ''+ staffDetails[0].last_name : 'Last Name' }}"  required="">
                     </div>
                     <div class="input-group">
                         <span><i class="fas fa-envelope" aria-hidden="true"></i></span>
-                        <input type="email" name="email" placeholder="Email" required="">
+                        <input type="email" name="email" placeholder="{{ staffDetails && staffDetails.length ? ''+ staffDetails[0].email : 'Email' }}"  required="">
                     </div>
                     <div class="input-group">
                         <span><i class="fas fa-phone" aria-hidden="true"></i></span>
-                        <input type="tel" name="phone" placeholder="Phone" required="">
-                    </div>
-                    <div class="input-group">
-                        <span><i class="fas fa-id-card" aria-hidden="true"></i></span>
-                        <input type="text" name="statt_id" placeholder="Statt ID" required="">
+                        <input type="tel" name="phone" placeholder="{{ staffDetails && staffDetails.length ? ''+ staffDetails[0].phone : 'Phone' }}"  required="">
                     </div>
                     <div class="input-group">
                         <span><i class="fas fa-store" aria-hidden="true"></i></span>
-                        <input type="text" name="store_id" placeholder="Store ID" required="">
+                        <input type="text" name="store_id" placeholder="{{ staffDetails && staffDetails.length ? 'Store Id: ' + staffDetails[0].store_id : 'Store Id' }}"  required="">
                     </div>
+                    @*</div>*@
                     <div class="input-group">
                         <span><i class="fas fa-key" aria-hidden="true"></i></span>
-                        <input type="Password" name="password" placeholder="Password" required="">
+                        <input type="password" name="password" placeholder="Password" required="">
                     </div>
                     <div class="form-row bottom">
                         <button id="signUpBtn" class="btn btn-primary btn-block" type="submit">Sign Up</button>
                     </div>
                 </form>
-                <p class="account">Already have an account? <a href="@Url.Action("Login", "Account")">Login</a></p>
+
+                <!--ng form-->
+
+                <p class="account2">Already have an account? <a href="@Url.Action("Login", "Account")">Login</a></p>
             </div>
         </div>
         <!-- //main content -->
@@ -65,3 +76,6 @@
 </div>
 
 <script src="~/Scripts/fontawesome.js"></script>
+<script src="~/Scripts/angular.min.js"></script>
+<script src="~/Scripts/angular-animate.js"></script>
+<script src="~/Scripts/Angular/AccountServiceJS.js"></script>

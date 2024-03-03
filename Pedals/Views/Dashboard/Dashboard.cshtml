@@ -1,0 +1,19 @@
+﻿
+@{
+    ViewBag.Title = "Dashboard";
+    Layout = "~/Views/_DashboardLayoutPage.cshtml";
+}
+<div class="checkbox-inline" ng-app="myApp" ng-controller="DashboardController">
+    <h2>Dashboard</h2>
+
+
+    <input type="checkbox" id="checkbox1" value="1"> Checkbox 1
+    <br>
+    <input type="checkbox" id="checkbox2" value="2"> Checkbox 2
+    <br>
+    <input type="checkbox" id="checkbox3" value="3"> Checkbox 3
+    <br>
+    <input type="checkbox" id="checkbox4" value="4"> Checkbox 4
+    <br>
+    <button ng-click="getCheckboxValues()">Get Checkbox Values</button>
+    </div>

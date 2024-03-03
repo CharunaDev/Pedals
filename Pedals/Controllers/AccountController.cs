@@ -4,16 +4,24 @@ using System.Data.SqlClient;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using Microsoft.Build.Utilities;
+using Microsoft.Extensions.Logging;
 using Pedals.Models;
-
+using Pedals.Services;
 
 namespace Pedals.Controllers
 {
     public class AccountController : Controller
     {
 
-        // Use IDisposable pattern to properly dispose of resources
-     
+        public IAccountService _accountService;
+
+        public AccountController(IAccountService accountService)
+        {
+            _accountService = accountService;
+
+        }
+
 
         SqlConnection con = new SqlConnection();
         SqlCommand cm = new SqlCommand();
@@ -25,11 +33,12 @@ namespace Pedals.Controllers
             return View();
         }
 
-        [HttpPost] 
+        [HttpPost]
         public ActionResult Verify(Account acc)
         {
-              try
-              {
+
+            try
+            {
                 connectionString();
                 con.Open();
                 cm.Connection = con;
@@ -40,7 +49,8 @@ namespace Pedals.Controllers
                 if (dr.Read())
                 {
                     con.Close();
-                    return View("Create"); // Return a success view
+                    return RedirectToAction("Dashboard", "Dashboard");
+                    // Return a success view
                 }
                 else
                 {
@@ -69,6 +79,15 @@ namespace Pedals.Controllers
         {
             return View();
         }
+
+        [HttpGet]
+        public JsonResult getStaff(int? staff_id)
+        {
+            //int Staff_id = 11;
+            var staffDetails = _accountService.GetStaffDetails(staff_id);
+            return Json(staffDetails, JsonRequestBehavior.AllowGet);
+        }
+
 
     }
 }
