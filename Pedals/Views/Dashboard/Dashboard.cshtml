@@ -3,7 +3,7 @@
     ViewBag.Title = "Dashboard";
     Layout = "~/Views/_DashboardLayoutPage.cshtml";
 }
-<div class="checkbox-inline" ng-app="myApp" ng-controller="DashboardController">
+<div class="checkbox-inline" ng-app="myApp" ng-controller="DashboardController" ng-init="GetOrderDetails()">
     <h2>Dashboard</h2>
 
 
@@ -16,4 +16,52 @@
     <input type="checkbox" id="checkbox4" value="4"> Checkbox 4
     <br>
     <button ng-click="getCheckboxValues()">Get Checkbox Values</button>
+
+
+    <div>
+        <table id="example" class="table table-striped nowrap" style="width:100%">
+            <thead>
+                <tr>
+                    <th>Index</th>
+                    <th>Order Id</th>
+                    <th>Customer Id</th>
+                    <th>Status</th>
+                    <th>OrderDate</th>
+                    <th>RequiredDate</th>
+                    <th>ShippedDate</th>
+                    <th>Store Id</th>
+                    <th>Staff ID</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="order in orderDetails" style="background-color:lightgoldenrodyellow">
+                    <th class="data-cell">{{$index+1}}</th>
+                    <th class="data-cell">{{order.order_id}}</th>
+                    <th class="data-cell">{{order.customer_id}}</th>
+                    <th class="data-cell">{{order.status}}</th>
+                    <th class="data-cell">{{order.order_datestr}}</th>
+                    <th class="data-cell">{{order.required_datestr}}</th>
+                    <th class="data-cell">{{order.shipped_datestr}}</th>
+                    <th class="data-cell">{{order.store_id}}</th>
+                    <th class="data-cell">{{order.staff_id}}</th>
+                </tr>
+            </tbody>
+        </table>
     </div>
+    <div class="pagination">
+        <button ng-click="prevPage()" ng-disabled="currentPage == 1">Previous</button>
+        Page {{currentPage}} of {{totalPages}}
+        <button ng-click="nextPage()" ng-disabled="currentPage == totalPages">Next</button>
+    </div>
+</div>
+
+<style>
+    .header-cell {
+        background-color: #007bff; /* Blue color */
+        color: white; /* Text color */
+    }
+
+    .data-cell {
+        background-color: #d4edda; /* Light green color */
+    }
+</style>

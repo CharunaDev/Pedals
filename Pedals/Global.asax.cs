@@ -28,6 +28,8 @@ namespace Pedals
             var builder = new ContainerBuilder();
             builder.RegisterControllers(typeof(MvcApplication).Assembly);
             builder.RegisterType<AccountService>().As<IAccountService>().WithParameter("connectionString", adoNetConnectionString);
+            builder.RegisterType<DashboardService>().As<IDashboardService>().WithParameter("connectionString", adoNetConnectionString);
+
 
             var container = builder.Build();
             DependencyResolver.SetResolver(new AutofacDependencyResolver(container));

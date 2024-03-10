@@ -11,7 +11,7 @@ namespace Pedals
 {
     using System;
     using System.Collections.Generic;
-    
+
     public partial class order
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -19,7 +19,7 @@ namespace Pedals
         {
             this.order_items = new HashSet<order_items>();
         }
-    
+
         public int order_id { get; set; }
         public Nullable<int> customer_id { get; set; }
         public byte order_status { get; set; }
@@ -28,11 +28,16 @@ namespace Pedals
         public Nullable<System.DateTime> shipped_date { get; set; }
         public int store_id { get; set; }
         public int staff_id { get; set; }
-    
+
         public virtual customer customer { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<order_items> order_items { get; set; }
         public virtual staff staff { get; set; }
         public virtual store store { get; set; }
+
+        public string status { get; set; }
+        public string order_datestr => order_date.ToString("yyyy-MM-dd");
+        public string required_datestr => required_date.ToString("yyyy-MM-dd");
+        public string shipped_datestr => shipped_date?.ToString("yyyy-MM-dd") ?? "No Shipped Date Available";
     }
 }
